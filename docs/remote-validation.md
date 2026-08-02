@@ -19,6 +19,7 @@ test suite and simulated API smoke tests; it does not replace them.
 | Minimal configuration | No checkout, no `actions: read`, and `history: false` still produce valid JSON | Passed; checkout was not downloaded; no monthly projection | [PR 5](https://github.com/seba-montero/ci-bill-doctor-lab/pull/5) |
 | Idempotent comment | A synchronize event updates the Action's comment instead of duplicating it | One `github-actions[bot]` comment retained ID `5155132344`; `updated_at` advanced | [PR 6](https://github.com/seba-montero/ci-bill-doctor-lab/pull/6) |
 | `fail-on: high` | Only the guard check fails when a high finding is introduced | Application matrix passed; guard failed with one high finding | [PR 7](https://github.com/seba-montero/ci-bill-doctor-lab/pull/7) |
+| Cross-repository fork | Read the fork head by immutable SHA with no write permission or secrets | Cross-repository PR; read-only token; $0.012 to $0.372 delta; 5/5 valid historical runs; zero comments | [PR 8](https://github.com/seba-montero/ci-bill-doctor-lab/pull/8) |
 
 ## Private-repository permission fallback
 
@@ -33,11 +34,18 @@ The same missing-permission condition cannot be reproduced faithfully in the
 public lab because workflow run metadata for a public repository remains
 publicly readable.
 
-## Remaining release gate
+## Release gate outcome
 
-A real pull request from a fork is still required to confirm head-SHA reads and
-read-only token behavior across the repository boundary. Marketplace publication
-and the moving `v0` tag remain blocked until that probe succeeds.
+All technical gates for v0.1.0 passed. The fork probe used head commit
+`d4e74cba8acebf06d8a1209a596f89fe57b49ba2` from `smontero88`, while the base
+workflow consumed the Action at
+`23421c0fe7e36d8528592fb1435ef4e078b7c90a`. Effective permissions were
+`actions: read`, `contents: read`, and `pull-requests: read`, with no write
+scope. The guard and all application jobs passed.
+
+The immutable `v0.1.0` tag and moving `v0` tag identify this validated beta
+release. Consumers that require maximal supply-chain stability should pin the
+full release commit SHA.
 
 The Marketplace Developer Agreement, listing categories, and any account-level
 publication confirmation are separate manual release steps.

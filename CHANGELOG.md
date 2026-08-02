@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.0 - 2026-08-02
+
 - Frontera formalizada entre core público MIT y plataforma comercial privada.
 - Titular de copyright y política de marca documentados antes de la publicación.
 - Historial efímero opt-in de runs/jobs de GitHub Actions.
@@ -31,6 +33,7 @@
 - Comentario idempotente para `github-actions[bot]` y PAT del actor, sin aceptar marcadores ajenos.
 - Smoke de producción agregado sobre Node.js 24.
 - Suite ampliada a 45 pruebas más ocho escenarios integrales del bundle.
+- Validación remota aprobada en consumidores públicos, privados y desde fork.
 
 ### Implementación inicial incluida en la primera release
 

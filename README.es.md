@@ -11,7 +11,7 @@ ejecuciones duplicadas, falta de cancelación y oportunidades prudentes de cach�
 
 ## Estado
 
-Versión inicial 0.1.0 en desarrollo.
+Versión beta actual: 0.1.0.
 
 Ya funciona:
 

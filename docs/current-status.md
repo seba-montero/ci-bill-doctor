@@ -1,7 +1,7 @@
 # CI Bill Doctor — Estado actual
 
-**Fecha:** 1 de agosto de 2026
-**Versión de trabajo:** 0.1.0
+**Fecha:** 2 de agosto de 2026
+**Versión:** 0.1.0 beta
 **Objetivo de este corte:** cerrar una vertical funcional con historial experimental verificable
 
 ## Entregado
@@ -30,8 +30,8 @@
 - GitHub Action compilada para Node.js 24.
 - Lectura base/head de workflows modificados mediante API.
 - Lectura head preparada para forks mediante el repositorio base y el SHA
-  inmutable del evento; validación remota same-repository aprobada y prueba de
-  fork todavía pendiente.
+  inmutable del evento; validación remota same-repository y desde fork
+  aprobadas.
 - Permiso mínimo explícito `pull-requests: read`; `write` solo para comentarios.
 - Step Summary, output JSON y comentario idempotente opcional.
 - Umbral configurable para fallar el check.
@@ -67,6 +67,8 @@
 - Laboratorio remoto público aprobado para PR normal, expansión de matriz,
   cambio de triggers, configuración mínima sin checkout y comentario idempotente.
 - Fallback HTTP 403 aprobado en un consumidor privado sin `actions: read`.
+- PR cross-repository aprobado con permisos exclusivamente de lectura, Action
+  fijada por SHA, salida JSON completa y cero comentarios o escrituras.
 
 ## Verificación realizada
 
@@ -115,12 +117,13 @@ caché, tráfico o duración.
 
 ## Próximo bloque recomendado
 
-1. Completar un pull request real desde fork con permisos de solo lectura.
-2. Publicar la primera release y Marketplace únicamente después de ese gate.
-3. Backtestear dirección y error del escenario esperado contra los 30 días siguientes.
-4. Incorporar lectura de headers y retry adaptativo acotado sin
+1. Publicar y observar la primera release beta.
+2. Completar la confirmación manual de GitHub Marketplace.
+3. Iniciar el período de validación orgánica medido.
+4. Backtestear dirección y error del escenario esperado contra los 30 días siguientes.
+5. Incorporar lectura de headers y retry adaptativo acotado sin
    superar el objetivo de 30 segundos.
-5. Llevar el dataset a 25 fixtures, incluidos eventos de pull request y forks.
+6. Llevar el dataset a 25 fixtures, incluidos eventos de pull request y forks.
 
 ## Decisiones técnicas pendientes
 

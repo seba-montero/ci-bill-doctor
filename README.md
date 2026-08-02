@@ -12,7 +12,7 @@ opportunities.
 
 ## Status
 
-Initial version 0.1.0 is under development.
+Current beta release: 0.1.0.
 
 Already implemented:
 
