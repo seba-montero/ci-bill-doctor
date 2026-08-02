@@ -287,6 +287,7 @@ Licenses for software embedded in the Action bundle are preserved in the
 - [Current status](docs/current-status.md)
 - [Architecture](docs/architecture.md)
 - [Reproducible lab](lab/README.md)
+- [Remote validation report](docs/remote-validation.md)
 - [Architecture decisions](docs/decisions/0001-open-core-mit.md)
 - [Ephemeral-history boundary](docs/decisions/0002-ephemeral-history.md)
 - [Public core and private platform](docs/decisions/0003-public-core-private-cloud.md)

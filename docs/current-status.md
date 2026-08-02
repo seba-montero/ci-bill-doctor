@@ -30,7 +30,8 @@
 - GitHub Action compilada para Node.js 24.
 - Lectura base/head de workflows modificados mediante API.
 - Lectura head preparada para forks mediante el repositorio base y el SHA
-  inmutable del evento; validación remota todavía pendiente.
+  inmutable del evento; validación remota same-repository aprobada y prueba de
+  fork todavía pendiente.
 - Permiso mínimo explícito `pull-requests: read`; `write` solo para comentarios.
 - Step Summary, output JSON y comentario idempotente opcional.
 - Umbral configurable para fallar el check.
@@ -63,6 +64,9 @@
 - Job de smoke sobre el runtime productivo Node.js 24.
 - Tests del núcleo, integración y fixtures.
 - Build reproducible y auditoría de dependencias sin vulnerabilidades conocidas.
+- Laboratorio remoto público aprobado para PR normal, expansión de matriz,
+  cambio de triggers, configuración mínima sin checkout y comentario idempotente.
+- Fallback HTTP 403 aprobado en un consumidor privado sin `actions: read`.
 
 ## Verificación realizada
 
@@ -72,6 +76,8 @@
 - Bundle de Action: aprobado.
 - Ocho escenarios integrales del bundle contra API simulada: aprobados.
 - Auditoría npm: cero vulnerabilidades conocidas.
+- CI remota Node 22/24 y bundle reproducible: aprobados.
+- Resultados y enlaces registrados en [remote-validation.md](remote-validation.md).
 
 ## Lo que la cifra significa hoy
 
@@ -109,13 +115,12 @@ caché, tráfico o duración.
 
 ## Próximo bloque recomendado
 
-1. Probar la Action en un repositorio remoto de laboratorio, incluidos permisos
-   insuficientes, forks, reruns y workflows sin historial.
-2. Backtestear dirección y error del escenario esperado contra los 30 días siguientes.
-3. Incorporar lectura de headers y retry adaptativo acotado sin
+1. Completar un pull request real desde fork con permisos de solo lectura.
+2. Publicar la primera release y Marketplace únicamente después de ese gate.
+3. Backtestear dirección y error del escenario esperado contra los 30 días siguientes.
+4. Incorporar lectura de headers y retry adaptativo acotado sin
    superar el objetivo de 30 segundos.
-4. Llevar el dataset a 25 fixtures, incluidos eventos de pull request y forks.
-5. Construir el scanner web anónimo solo después de estabilizar el esquema JSON.
+5. Llevar el dataset a 25 fixtures, incluidos eventos de pull request y forks.
 
 ## Decisiones técnicas pendientes
 
