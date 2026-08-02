@@ -32,6 +32,9 @@
 - Límite web de 250 KB medido en UTF-8 y renderizado dinámico sin `innerHTML`.
 - Formularios estructurados y sanitizados para feedback, bugs e interés alojado.
 - Pipeline reproducible de GitHub Pages con gates técnicos y avisos legales en el artifact.
+- GitHub Pages habilitado y scanner validado en producción.
+- Release `v0.2.0` publicada en GitHub Marketplace y canal móvil `v0`
+  actualizado al mismo commit validado.
 - GitHub Action compilada para Node.js 24.
 - Lectura base/head de workflows modificados mediante API.
 - Lectura head preparada para forks mediante el repositorio base y el SHA
@@ -123,9 +126,12 @@ caché, tráfico o duración.
 
 ## Próximo bloque recomendado
 
-1. Habilitar GitHub Pages y validar el scanner en producción.
-2. Medir el embudo Marketplace/README/scanner mediante señales no invasivas.
-3. Iniciar el período de validación orgánica de 30 días.
+1. Ejecutar el primer evento de distribución y, recién entonces, iniciar el
+   período formal de validación orgánica de 30 días.
+2. Preservar snapshots de tráfico y medir el embudo
+   Marketplace/README/scanner mediante señales no invasivas.
+3. Publicar dos activos técnicos de alta intención y completar los lanzamientos
+   comunitarios mínimos definidos en el plan de validación.
 4. Backtestear dirección y error del escenario esperado contra los 30 días siguientes.
 5. Incorporar lectura de headers y retry adaptativo acotado sin
    superar el objetivo de 30 segundos.
