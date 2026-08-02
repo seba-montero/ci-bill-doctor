@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CI Bill Doctor — GitHub Actions cost scanner</title>
+    <meta
+      name="description"
+      content="Find GitHub Actions cost regressions before merge. Scan workflow YAML locally in your browser or add the free GitHub Action, read-only by default."
+    />
+    <meta
+      name="keywords"
+      content="GitHub Actions cost calculator, GitHub Actions pricing, CI cost optimization, matrix cost calculator, FinOps"
+    />
+    <meta name="theme-color" content="#07110e" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://seba-montero.github.io/ci-bill-doctor/" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CI Bill Doctor — Catch CI cost regressions before merge" />
+    <meta
+      property="og:description"
+      content="A free, explainable GitHub Actions cost scanner. No account, backend, or source upload."
+    />
+    <meta property="og:url" content="https://seba-montero.github.io/ci-bill-doctor/" />
+    <meta
+      property="og:image"
+      content="https://seba-montero.github.io/ci-bill-doctor/report-preview.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="CI Bill Doctor illustration showing a workflow cost signal rising from $0.012 to $0.372 per minute"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CI Bill Doctor",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web, GitHub Actions",
+        "description": "Find potential GitHub Actions cost regressions before merge.",
+        "url": "https://seba-montero.github.io/ci-bill-doctor/",
+        "downloadUrl": "https://github.com/marketplace/actions/ci-bill-doctor",
+        "softwareVersion": "0.2.0",
+        "isAccessibleForFree": true,
+        "license": "https://opensource.org/license/mit"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#scanner">Skip to scanner</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="CI Bill Doctor home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span>CI Bill Doctor</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#scanner">Scanner</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#install">Install</a>
+        <a
+          class="nav-github"
+          href="https://github.com/seba-montero/ci-bill-doctor"
+          target="_blank"
+          rel="noreferrer"
+        >GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-dot"></span> Free public beta · v0.2.0</div>
+          <h1>Catch CI cost regressions <em>before merge.</em></h1>
+          <p class="hero-lede">
+            See when a pull request expands a matrix, moves jobs to expensive runners,
+            broadens triggers, or removes cost guardrails—while the change is still reviewable.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#scanner">Scan a workflow</a>
+            <a
+              class="button button-secondary"
+              href="https://github.com/marketplace/actions/ci-bill-doctor"
+              target="_blank"
+              rel="noreferrer"
+            >Install the Action <span aria-hidden="true">↗</span></a>
+          </div>
+          <ul class="trust-list" aria-label="Product guarantees">
+            <li><span aria-hidden="true">✓</span> Read-only by default</li>
+            <li><span aria-hidden="true">✓</span> No account</li>
+            <li><span aria-hidden="true">✓</span> No product telemetry</li>
+          </ul>
+        </div>
+
+        <div class="hero-proof" aria-label="Example CI Bill Doctor result">
+          <div class="proof-window">
+            <div class="window-bar">
+              <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span>workflow cost review</span>
+              <span class="proof-pass">ANALYZED</span>
+            </div>
+            <div class="proof-content">
+              <p class="proof-label">PULL-REQUEST COST SIGNAL</p>
+              <div class="rate-grid">
+                <div><span>BASE</span><strong>$0.012</strong><small>/min</small></div>
+                <div><span>HEAD</span><strong>$0.372</strong><small>/min</small></div>
+                <div class="rate-delta"><span>DELTA</span><strong>+$0.360</strong><small>/min</small></div>
+              </div>
+              <div class="proof-finding high">
+                <span class="finding-icon">!</span>
+                <div>
+                  <strong>macOS runner has a high per-minute rate</strong>
+                  <p>Keep macOS only for steps that require Apple tooling.</p>
+                </div>
+                <span class="severity">HIGH</span>
+              </div>
+              <div class="proof-finding medium">
+                <span class="finding-icon">6×</span>
+                <div>
+                  <strong>Matrix expands to many job copies</strong>
+                  <p>Remove unsupported combinations or split nightly coverage.</p>
+                </div>
+                <span class="severity">MEDIUM</span>
+              </div>
+            </div>
+          </div>
+          <p class="proof-note">
+            Illustration based on a
+            <a href="https://github.com/seba-montero/ci-bill-doctor-lab/pull/2" target="_blank" rel="noreferrer">validated public lab result <span aria-hidden="true">↗</span></a>.
+            Public list-rate signals—not an invoice.
+          </p>
+        </div>
+      </section>
+
+      <section id="scanner" class="scanner-section">
+        <div class="section-shell">
+          <div class="section-heading scanner-heading">
+            <div>
+              <p class="kicker">TRY IT NOW</p>
+              <h2>Scan workflow YAML in this tab.</h2>
+              <p>Nothing you paste is uploaded, stored, or sent to an AI model.</p>
+            </div>
+            <div class="local-badge" title="The analyzer runs as JavaScript in your browser">
+              <span aria-hidden="true">◉</span>
+              Browser-only analysis
+            </div>
+          </div>
+
+          <div class="scanner-card">
+            <div class="scanner-toolbar">
+              <div class="mode-switch" role="radiogroup" aria-label="Scanner mode">
+                <button type="button" class="mode-button active" data-mode="compare" role="radio" aria-checked="true" tabindex="0">
+                  Compare change
+                </button>
+                <button type="button" class="mode-button" data-mode="analyze" role="radio" aria-checked="false" tabindex="-1">
+                  Analyze one workflow
+                </button>
+              </div>
+              <div class="toolbar-actions">
+                <button type="button" class="text-button" id="load-example">Load example</button>
+                <label class="text-button file-button" for="workflow-file">
+                  Open YAML
+                  <input id="workflow-file" type="file" accept=".yml,.yaml,text/yaml,application/yaml" />
+                </label>
+                <button type="button" class="text-button muted" id="clear-editors">Clear</button>
+              </div>
+            </div>
+
+            <div class="editor-grid compare-mode" id="editor-grid">
+              <div class="editor-panel" id="base-editor-panel">
+                <div class="editor-label">
+                  <label for="base-workflow">Base workflow</label>
+                  <span>Before</span>
+                </div>
+                <textarea
+                  id="base-workflow"
+                  spellcheck="false"
+                  autocomplete="off"
+                  aria-describedby="editor-help"
+                ></textarea>
+              </div>
+              <div class="editor-panel">
+                <div class="editor-label">
+                  <label for="head-workflow" id="head-workflow-label">Proposed workflow</label>
+                  <span id="head-workflow-state">After</span>
+                </div>
+                <textarea
+                  id="head-workflow"
+                  spellcheck="false"
+                  autocomplete="off"
+                  aria-describedby="editor-help"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="scanner-submit-row">
+              <p id="editor-help">Maximum 250 KB per workflow. YAML 1.2 is parsed locally.</p>
+              <button type="button" class="button button-primary scan-button" id="run-scan">
+                Analyze cost signals <span aria-hidden="true">→</span>
+              </button>
+            </div>
+
+            <div id="scan-result" class="scan-result" aria-live="polite" aria-atomic="false"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="feature-section section-shell">
+        <div class="section-heading centered">
+          <p class="kicker">WHAT YOU GET</p>
+          <h2>A useful signal, with its evidence attached.</h2>
+          <p>The deterministic engine reports what changed, why it matters, and what remains unknown.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-number">01</span>
+            <h3>Cost signal</h3>
+            <p>Compare runner rates and static matrix fan-out before and after a workflow change.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">02</span>
+            <h3>Explainable findings</h3>
+            <p>Every finding includes severity, confidence, concrete evidence, and a recommendation.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">03</span>
+            <h3>Optional monthly context</h3>
+            <p>The Action can process recent run metadata ephemerally, with conservative fallback when incomplete.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install" class="install-section">
+        <div class="section-shell install-grid">
+          <div class="install-copy">
+            <p class="kicker">INSTALL IN 2 MINUTES</p>
+            <h2>Put the same check in every workflow pull request.</h2>
+            <p>
+              Create <code>.github/workflows/ci-bill-doctor.yml</code>. No checkout step,
+              account, API key, or backend connection is required.
+            </p>
+            <ul class="install-points">
+              <li>Results appear in the job summary.</li>
+              <li>Comments and monthly history stay off by default.</li>
+              <li>The check never blocks a merge unless you opt in.</li>
+            </ul>
+            <a
+              class="inline-link"
+              href="https://github.com/seba-montero/ci-bill-doctor#optional-history-comments-and-enforcement"
+              target="_blank"
+              rel="noreferrer"
+            >See optional configuration <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="code-card">
+            <div class="code-card-header">
+              <span>ci-bill-doctor.yml</span>
+              <button type="button" id="copy-install">Copy</button>
+            </div>
+            <pre><code id="install-code">name: CI cost guard
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: seba-montero/ci-bill-doctor@v0</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-section section-shell">
+        <div class="trust-card">
+          <div>
+            <p class="kicker">DESIGNED FOR TRUST</p>
+            <h2>Your workflow stays where it belongs.</h2>
+          </div>
+          <div class="trust-columns">
+            <div>
+              <h3>Free scanner</h3>
+              <p>Runs entirely in your browser. No network request contains your workflow.</p>
+            </div>
+            <div>
+              <h3>GitHub Action</h3>
+              <p>Runs inside your GitHub runner. History is opt-in and processed only in memory.</p>
+            </div>
+            <div>
+              <h3>Honest estimates</h3>
+              <p>Public list-rate signals exclude quotas, discounts, credits, and unknown runners.</p>
+            </div>
+          </div>
+          <a
+            class="inline-link"
+            href="https://github.com/seba-montero/ci-bill-doctor#privacy-and-security"
+            target="_blank"
+            rel="noreferrer"
+          >Read the privacy and permission contract <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="hosted-section section-shell">
+        <div class="hosted-card">
+          <div class="hosted-copy">
+            <p class="kicker">WHAT SHOULD COME NEXT?</p>
+            <h2>Help choose the first hosted capability.</h2>
+            <p>
+              Persistent history, policy guardrails, or multi-repository reporting?
+              Share what would be worth paying for. No meeting or email required.
+              The form and your GitHub username will be public.
+            </p>
+          </div>
+          <a
+            class="button button-light"
+            href="https://github.com/seba-montero/ci-bill-doctor/issues/new?template=hosted-interest.yml"
+            target="_blank"
+            rel="noreferrer"
+          >Open public preference form <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="faq-section section-shell">
+        <div class="section-heading centered">
+          <p class="kicker">STRAIGHT ANSWERS</p>
+          <h2>What the estimate does—and does not—mean.</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Is this my exact GitHub bill?</summary>
+            <p>No. It is a gross-equivalent signal at public list rates. It does not subtract included minutes, discounts, credits, or taxes.</p>
+          </details>
+          <details>
+            <summary>Does the scanner upload my YAML?</summary>
+            <p>No. The parser and analyzer are bundled into this page and execute locally in your browser.</p>
+          </details>
+          <details>
+            <summary>Will the Action block pull requests?</summary>
+            <p>Not by default. Comments, historical analysis, and failure thresholds are all explicit opt-ins.</p>
+          </details>
+          <details>
+            <summary>What runners are priced?</summary>
+            <p>The beta catalogs standard GitHub-hosted Linux, Windows, and macOS runners. Custom, larger, and self-hosted runners remain unknown.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="section-shell footer-inner">
+        <div>
+          <a class="brand footer-brand" href="#top">
+            <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span>CI Bill Doctor</span>
+          </a>
+          <p>Preventive CI cost signals, before merge.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/seba-montero/ci-bill-doctor">GitHub</a>
+          <a href="https://github.com/marketplace/actions/ci-bill-doctor">Marketplace</a>
+          <a href="https://github.com/seba-montero/ci-bill-doctor/blob/main/SECURITY.md">Security</a>
+          <a href="./LICENSE.txt">MIT License</a>
+          <a href="./THIRD_PARTY_NOTICES.md">Third-party notices</a>
+        </div>
+      </div>
+    </footer>
+
+    <noscript>
+      <div class="noscript">JavaScript is required only for the local scanner. The installation guide remains available on GitHub.</div>
+    </noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

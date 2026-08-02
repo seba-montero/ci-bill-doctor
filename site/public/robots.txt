@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://seba-montero.github.io/ci-bill-doctor/sitemap.xml

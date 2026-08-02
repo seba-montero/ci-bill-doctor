@@ -1,0 +1,16 @@
+{
+  "name": "CI Bill Doctor",
+  "short_name": "CI Bill Doctor",
+  "description": "Find potential GitHub Actions cost regressions before merge.",
+  "start_url": "/ci-bill-doctor/",
+  "display": "standalone",
+  "background_color": "#07110e",
+  "theme_color": "#07110e",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

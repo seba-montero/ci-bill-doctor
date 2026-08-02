@@ -1,9 +1,10 @@
 # Third-party notices
 
-CI Bill Doctor distributes a bundled GitHub Action that contains third-party
-runtime software. The project's MIT license does not replace the licenses of
-those components. This file preserves the copyright and permission notices
-shipped by the runtime dependency set locked in `package-lock.json`.
+CI Bill Doctor distributes a bundled GitHub Action and a browser scanner that
+contain third-party runtime software. The project's MIT license does not replace
+the licenses of those components. This file preserves the copyright and
+permission notices shipped by the runtime dependency set locked in
+`package-lock.json`.
 
 The inventory intentionally includes the complete non-development dependency
 closure used to build the bundle, even when a package contributes only types or

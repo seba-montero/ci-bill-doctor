@@ -1,8 +1,8 @@
 # CI Bill Doctor — Estado actual
 
 **Fecha:** 2 de agosto de 2026
-**Versión:** 0.1.0 beta
-**Objetivo de este corte:** cerrar una vertical funcional con historial experimental verificable
+**Versión:** 0.2.0 beta
+**Objetivo de este corte:** sumar adquisición orgánica y validación asincrónica al producto funcional
 
 ## Entregado
 
@@ -27,6 +27,11 @@
   - oportunidad prudente de caché.
 - Evidencia, recomendación, severidad y confianza por hallazgo.
 - CLI con Markdown y JSON.
+- Entry point browser-safe con frontera pública explícita.
+- Landing y scanner estático de comparación/análisis ejecutado íntegramente en el navegador.
+- Límite web de 250 KB medido en UTF-8 y renderizado dinámico sin `innerHTML`.
+- Formularios estructurados y sanitizados para feedback, bugs e interés alojado.
+- Pipeline reproducible de GitHub Pages con gates técnicos y avisos legales en el artifact.
 - GitHub Action compilada para Node.js 24.
 - Lectura base/head de workflows modificados mediante API.
 - Lectura head preparada para forks mediante el repositorio base y el SHA
@@ -63,7 +68,8 @@
 - Actualización idempotente de comentarios propios, incluidos PAT del actor, sin confiar en marcadores ajenos.
 - Job de smoke sobre el runtime productivo Node.js 24.
 - Tests del núcleo, integración y fixtures.
-- Build reproducible y auditoría de dependencias sin vulnerabilidades conocidas.
+- Build reproducible y auditoría de dependencias sin vulnerabilidades conocidas
+  al 2 de agosto de 2026.
 - Laboratorio remoto público aprobado para PR normal, expansión de matriz,
   cambio de triggers, configuración mínima sin checkout y comentario idempotente.
 - Fallback HTTP 403 aprobado en un consumidor privado sin `actions: read`.
@@ -73,11 +79,11 @@
 ## Verificación realizada
 
 - TypeScript strict: aprobado.
-- 45 pruebas automatizadas: aprobadas.
+- 50 pruebas automatizadas: aprobadas.
 - Build de librería/CLI: aprobado.
 - Bundle de Action: aprobado.
 - Ocho escenarios integrales del bundle contra API simulada: aprobados.
-- Auditoría npm: cero vulnerabilidades conocidas.
+- Auditoría npm al 2 de agosto de 2026: cero vulnerabilidades conocidas.
 - CI remota Node 22/24 y bundle reproducible: aprobados.
 - Resultados y enlaces registrados en [remote-validation.md](remote-validation.md).
 
@@ -110,16 +116,16 @@ caché, tráfico o duración.
 - No hay retry/backoff ni presupuesto adaptativo por headers de rate limit.
 - Las requests REST todavía no tienen timeout/abort propio; el timeout del job es la última defensa.
 - La proyección no fue backtesteada contra períodos futuros ni facturas reales.
-- No hay scanner web o landing.
-- No hay telemetría; permanece deshabilitada por diseño.
-- Existen nueve fixtures YAML del core y 45 pruebas, todavía por debajo del gate de 25
+- El scanner web no incorpora telemetría de CI Bill Doctor; permanece
+  deshabilitada por diseño durante la beta inicial.
+- Existen nueve fixtures YAML del core y 50 pruebas, todavía por debajo del gate de 25
   fixtures representativos.
 
 ## Próximo bloque recomendado
 
-1. Publicar y observar la primera release beta.
-2. Completar la confirmación manual de GitHub Marketplace.
-3. Iniciar el período de validación orgánica medido.
+1. Habilitar GitHub Pages y validar el scanner en producción.
+2. Medir el embudo Marketplace/README/scanner mediante señales no invasivas.
+3. Iniciar el período de validación orgánica de 30 días.
 4. Backtestear dirección y error del escenario esperado contra los 30 días siguientes.
 5. Incorporar lectura de headers y retry adaptativo acotado sin
    superar el objetivo de 30 segundos.
