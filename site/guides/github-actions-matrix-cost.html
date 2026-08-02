@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Much Does a GitHub Actions Matrix Cost?</title>
+    <meta name="description" content="Calculate GitHub Actions matrix fan-out, combine it with runner rates, and catch CI cost regressions before merge." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#07110e" />
+    <link rel="canonical" href="https://seba-montero.github.io/ci-bill-doctor/guides/github-actions-matrix-cost.html" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Much Does a GitHub Actions Matrix Cost?" />
+    <meta property="og:description" content="A worked GitHub Actions matrix-cost example with explicit assumptions and a free local scanner." />
+    <meta property="og:url" content="https://seba-montero.github.io/ci-bill-doctor/guides/github-actions-matrix-cost.html" />
+    <meta property="og:image" content="https://seba-montero.github.io/ci-bill-doctor/report-preview.png" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"TechArticle","headline":"How Much Does a GitHub Actions Matrix Cost?","datePublished":"2026-08-02","dateModified":"2026-08-02","author":{"@type":"Person","name":"Sebastián Montero"},"publisher":{"@type":"Organization","name":"CI Bill Doctor"},"mainEntityOfPage":"https://seba-montero.github.io/ci-bill-doctor/guides/github-actions-matrix-cost.html"}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#article">Skip to article</a>
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="CI Bill Doctor home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>CI Bill Doctor</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="../#scanner">Scanner</a>
+        <a href="../#guides">Guides</a>
+        <a class="nav-github" href="https://github.com/marketplace/actions/ci-bill-doctor">Install <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="article" class="article-main">
+      <header class="article-hero">
+        <p class="kicker">GITHUB ACTIONS MATRIX COST</p>
+        <h1>How much does a GitHub Actions matrix cost?</h1>
+        <p class="article-lede">A matrix is concise YAML, but every static combination can create another job. The useful review question is not “how many lines changed?” It is “how much work did this pull request multiply?”</p>
+        <p class="article-meta">Published August 2, 2026 · 6 minute read · Public list-rate methodology</p>
+      </header>
+
+      <article class="article-body">
+        <h2>Start with the Cartesian product</h2>
+        <p>For ordinary static axes, multiply the number of values in each axis. Two Node.js versions and three databases produce six job copies:</p>
+        <pre><code>strategy:
+  matrix:
+    node: [18, 20]
+    database: [postgres, mysql, sqlite]</code></pre>
+        <div class="formula-card"><strong>2 Node versions × 3 databases = 6 job copies</strong></div>
+        <p><code>include</code>, <code>exclude</code>, dynamic expressions, and reusable workflows can change that result. A trustworthy analyzer should model the combinations it can prove and mark the rest as approximate or unknown—not silently call them free.</p>
+
+        <h2>Combine copies with the runner rate</h2>
+        <p>CI Bill Doctor’s beta signal for one runtime minute is:</p>
+        <div class="formula-card"><strong>public runner rate × static matrix copies</strong></div>
+        <p>Its catalog reviewed on August 1, 2026 records standard GitHub-hosted Linux at USD 0.006 per minute and standard macOS at USD 0.062 per minute. Always verify the current values in <a href="https://docs.github.com/en/billing/reference/actions-runner-pricing">GitHub’s official runner pricing</a>; the project also keeps a <a href="https://github.com/seba-montero/ci-bill-doctor/blob/main/catalog/github-hosted-standard.json">versioned catalog</a>.</p>
+
+        <h2>A small diff, a large structural change</h2>
+        <p>Consider a base workflow with two Linux copies and a proposed workflow with six macOS copies:</p>
+        <div class="formula-card">
+          <strong>Base: 2 × $0.006 = $0.012 per workflow runtime minute</strong>
+          <strong>Proposed: 6 × $0.062 = $0.372 per workflow runtime minute</strong>
+        </div>
+        <p>The delta is USD 0.360 for every minute represented by that static structure. That is not the final bill: actual duration, run frequency, included quotas, discounts, credits, taxes, retries, and other repositories still matter. It is a review signal showing that the proposed workflow is structurally much more expensive at public list rates.</p>
+        <div class="article-callout"><strong>Validated example.</strong> The project reproduced this comparison in a <a href="https://github.com/seba-montero/ci-bill-doctor-lab/pull/2">public consumer-lab pull request</a>. The Action reports its assumptions beside the number.</div>
+
+        <h2>What to review before merging</h2>
+        <ul>
+          <li>Remove unsupported combinations with <code>exclude</code>.</li>
+          <li>Move exhaustive combinations to a nightly or manual workflow when pull-request coverage can be smaller.</li>
+          <li>Keep platform-specific jobs separate from portable tests.</li>
+          <li>Add path filters when only some changes require the expensive workflow.</li>
+          <li>Cancel superseded runs and add explicit timeouts.</li>
+        </ul>
+        <p>These are review prompts, not automatic edits. The correct combination set depends on the project’s compatibility promise.</p>
+
+        <h2>What this calculation cannot tell you</h2>
+        <p>A static matrix signal cannot reconcile an invoice. Dynamic matrices, larger runners, custom labels, self-hosted infrastructure, changing duration, and organization-specific pricing require additional evidence. Unknown must remain unknown.</p>
+
+        <section class="article-cta">
+          <h2>Check your workflow locally</h2>
+          <p>Paste base and proposed YAML into the free browser scanner. Analysis runs in the current tab; CI Bill Doctor receives no workflow content or telemetry.</p>
+          <a class="button button-primary" href="../#scanner">Open the local scanner <span aria-hidden="true">→</span></a>
+        </section>
+      </article>
+    </main>
+
+    <footer><div class="section-shell footer-inner"><div><a class="brand footer-brand" href="../"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>CI Bill Doctor</span></a><p>Preventive CI cost signals, before merge.</p></div><div class="footer-links"><a href="../">Scanner</a><a href="https://github.com/seba-montero/ci-bill-doctor">GitHub</a><a href="https://github.com/marketplace/actions/ci-bill-doctor">Marketplace</a><a href="../LICENSE.txt">MIT License</a></div></div></footer>
+  </body>
+</html>

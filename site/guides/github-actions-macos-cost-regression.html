@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catch a GitHub Actions macOS Cost Regression Before Merge</title>
+    <meta name="description" content="See how macOS runner selection and matrix expansion compound in GitHub Actions, with a validated before-and-after example." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#07110e" />
+    <link rel="canonical" href="https://seba-montero.github.io/ci-bill-doctor/guides/github-actions-macos-cost-regression.html" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Catch a GitHub Actions macOS Cost Regression Before Merge" />
+    <meta property="og:description" content="Runner selection and matrix fan-out compound. Review the cost signal before the workflow change reaches the bill." />
+    <meta property="og:url" content="https://seba-montero.github.io/ci-bill-doctor/guides/github-actions-macos-cost-regression.html" />
+    <meta property="og:image" content="https://seba-montero.github.io/ci-bill-doctor/report-preview.png" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"TechArticle","headline":"Catch a GitHub Actions macOS Cost Regression Before Merge","datePublished":"2026-08-02","dateModified":"2026-08-02","author":{"@type":"Person","name":"Sebastián Montero"},"publisher":{"@type":"Organization","name":"CI Bill Doctor"},"mainEntityOfPage":"https://seba-montero.github.io/ci-bill-doctor/guides/github-actions-macos-cost-regression.html"}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#article">Skip to article</a>
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="CI Bill Doctor home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>CI Bill Doctor</span></a>
+      <nav aria-label="Primary navigation"><a href="../#scanner">Scanner</a><a href="../#guides">Guides</a><a class="nav-github" href="https://github.com/marketplace/actions/ci-bill-doctor">Install <span aria-hidden="true">↗</span></a></nav>
+    </header>
+
+    <main id="article" class="article-main">
+      <header class="article-hero">
+        <p class="kicker">GITHUB ACTIONS MACOS COST</p>
+        <h1>Catch a macOS cost regression before merge.</h1>
+        <p class="article-lede">A runner change can look like a one-line compatibility fix. When it applies to every matrix copy, the economic effect can be much larger than the diff suggests.</p>
+        <p class="article-meta">Published August 2, 2026 · 6 minute read · Public list-rate methodology</p>
+      </header>
+
+      <article class="article-body">
+        <h2>Runner choice and fan-out compound</h2>
+        <p>The cost-risk signal has two independent multipliers: the public per-minute rate of the runner and the number of job copies created by the workflow. Changing either deserves review. Changing both in one pull request deserves explicit evidence.</p>
+        <div class="formula-card"><strong>runner rate × matrix copies × observed duration × run frequency</strong></div>
+        <p>The free static scanner proves the first two factors. The optional Action history uses bounded run metadata for duration and frequency, then suppresses unsupported projections when coverage or trigger comparability is incomplete.</p>
+
+        <h2>A validated before-and-after signal</h2>
+        <p>The public laboratory includes a base structure with two standard Linux copies and a proposed structure with six standard macOS copies. With the project catalog reviewed August 1, 2026:</p>
+        <div class="formula-card">
+          <strong>Linux base: 2 × $0.006 = $0.012/min</strong>
+          <strong>macOS proposal: 6 × $0.062 = $0.372/min</strong>
+          <strong>Structural delta: +$0.360/min</strong>
+        </div>
+        <p>See the <a href="https://github.com/seba-montero/ci-bill-doctor-lab/pull/2">validated lab report</a>, the <a href="https://github.com/seba-montero/ci-bill-doctor/blob/main/docs/methodology.md">full methodology</a>, and <a href="https://docs.github.com/en/billing/reference/actions-runner-pricing">GitHub’s current official pricing</a>.</p>
+        <div class="article-callout"><strong>This is not an invoice.</strong> It is a gross-equivalent signal using public list rates. Included minutes, discounts, credits, taxes, duration changes, and organization-wide usage are outside the static comparison.</div>
+
+        <h2>Safer review questions</h2>
+        <h3>Does every job need Apple tooling?</h3>
+        <p>Keep compilation, signing, simulator, and platform-specific tests on macOS when required. Portable linting, formatting, unit tests, and packaging may be able to remain on Linux.</p>
+
+        <h3>Does every pull request need the full matrix?</h3>
+        <p>A smaller compatibility set can protect pull requests while exhaustive platform/version coverage runs nightly or before release. The right split depends on the cost of delayed feedback and escaped defects.</p>
+
+        <h3>Can unchanged areas skip the workflow?</h3>
+        <p>Careful <code>paths</code> or <code>paths-ignore</code> filters can prevent unrelated changes from starting expensive work. Validate monorepository semantics before narrowing triggers.</p>
+
+        <h3>Are superseded runs still consuming time?</h3>
+        <p><code>concurrency.cancel-in-progress</code> can stop obsolete work when newer commits arrive. Explicit <code>timeout-minutes</code> also limits the cost of a hung job.</p>
+
+        <h2>When the answer must remain unknown</h2>
+        <p>Custom labels, larger runners, self-hosted machines, dynamic matrices, and reusable workflow behavior cannot be priced honestly from a simple YAML diff. CI Bill Doctor reports those boundaries rather than treating missing price data as zero.</p>
+
+        <section class="article-cta">
+          <h2>Review the change before merge</h2>
+          <p>Compare workflow YAML in the browser or install the read-only-by-default Action. The deterministic engine does not send source, logs, artifacts, or workflow content to CI Bill Doctor.</p>
+          <a class="button button-primary" href="../#scanner">Compare workflow YAML <span aria-hidden="true">→</span></a>
+        </section>
+      </article>
+    </main>
+
+    <footer><div class="section-shell footer-inner"><div><a class="brand footer-brand" href="../"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>CI Bill Doctor</span></a><p>Preventive CI cost signals, before merge.</p></div><div class="footer-links"><a href="../">Scanner</a><a href="https://github.com/seba-montero/ci-bill-doctor">GitHub</a><a href="https://github.com/marketplace/actions/ci-bill-doctor">Marketplace</a><a href="../LICENSE.txt">MIT License</a></div></div></footer>
+  </body>
+</html>
