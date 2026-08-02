@@ -1,0 +1,10 @@
+name: Custom larger runner
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest-8-cores
+    timeout-minutes: 20
+    steps:
+      - run: npm test

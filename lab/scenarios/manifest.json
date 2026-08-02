@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "scenarios": [
+    {
+      "id": "normal-pr",
+      "title": "Pull request without workflow changes",
+      "overlay": "normal-pr/overlay",
+      "changedPaths": [
+        "docs/normal-pr.md"
+      ],
+      "expected": {
+        "workflowComparison": false,
+        "summaryContains": "No added or modified GitHub Actions workflow files were found."
+      }
+    },
+    {
+      "id": "matrix-impact",
+      "title": "Runner and matrix cost regression",
+      "overlay": "matrix-impact/overlay",
+      "changedPaths": [
+        ".github/workflows/app-ci.yml"
+      ],
+      "expected": {
+        "workflowComparison": true,
+        "baseRateUsdPerWorkflowMinute": 0.012,
+        "headRateUsdPerWorkflowMinute": 0.372,
+        "deltaUsdPerWorkflowMinute": 0.36,
+        "introducedRuleIds": [
+          "expensive-runner",
+          "large-matrix"
+        ],
+        "triggerConfigurationChanged": false
+      }
+    },
+    {
+      "id": "trigger-expansion",
+      "title": "Frequency risk caused by broader triggers",
+      "overlay": "trigger-expansion/overlay",
+      "changedPaths": [
+        ".github/workflows/app-ci.yml"
+      ],
+      "expected": {
+        "workflowComparison": true,
+        "baseRateUsdPerWorkflowMinute": 0.012,
+        "headRateUsdPerWorkflowMinute": 0.012,
+        "deltaUsdPerWorkflowMinute": 0,
+        "introducedRuleIds": [
+          "duplicate-branch-triggers"
+        ],
+        "triggerConfigurationChanged": true,
+        "proposedMonthlyProjectionAvailable": false
+      }
+    }
+  ]
+}

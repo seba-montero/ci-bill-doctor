@@ -1,0 +1,27 @@
+name: Baseline CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node:
+          - 20
+          - 22
+    steps:
+      - uses: actions/setup-node@v6
+        with:
+          cache: npm
+      - run: npm ci
+      - run: npm test

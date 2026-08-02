@@ -1,0 +1,13 @@
+name: Self-hosted
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+    timeout-minutes: 20
+    steps:
+      - run: npm test

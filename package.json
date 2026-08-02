@@ -1,0 +1,74 @@
+{
+  "name": "ci-bill-doctor",
+  "version": "0.1.0",
+  "description": "Estimate potential GitHub Actions cost regressions before merge.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Sebastián Montero",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seba-montero/ci-bill-doctor.git"
+  },
+  "homepage": "https://github.com/seba-montero/ci-bill-doctor#readme",
+  "bugs": {
+    "url": "https://github.com/seba-montero/ci-bill-doctor/issues"
+  },
+  "keywords": [
+    "github-actions",
+    "ci-cost",
+    "finops",
+    "devops",
+    "github-action"
+  ],
+  "bin": {
+    "ci-bill-doctor": "./dist/lib/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib/index.js"
+    }
+  },
+  "files": [
+    "action.yml",
+    "dist",
+    "LICENSE",
+    "README.md",
+    "README.es.md",
+    "THIRD_PARTY_NOTICES.md",
+    "TRADEMARKS.md"
+  ],
+  "scripts": {
+    "build": "npm run typecheck && npm run build:lib && npm run build:action",
+    "build:action": "node scripts/clean-action-dist.mjs && esbuild src/action.ts --bundle --platform=node --target=node24 --format=cjs --minify --outfile=dist/action/index.cjs",
+    "build:lib": "tsup src/index.ts src/cli.ts --format esm --dts --clean --out-dir dist/lib",
+    "check": "npm run typecheck && npm test && npm run check:notices && npm run build && npm run smoke:action",
+    "check:notices": "node scripts/check-third-party-notices.mjs",
+    "cli": "tsx src/cli.ts",
+    "smoke:action": "node scripts/action-smoke.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "fast-glob": "^3.3.3",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "esbuild": "^0.28.1",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
+  }
+}

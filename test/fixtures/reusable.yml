@@ -1,0 +1,8 @@
+name: Reusable workflow caller
+
+on: workflow_call
+
+jobs:
+  release:
+    uses: acme/automation/.github/workflows/release.yml@v3
+    secrets: inherit

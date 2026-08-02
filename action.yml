@@ -1,0 +1,41 @@
+name: CI Bill Doctor
+description: Estimate potential GitHub Actions cost regressions before merge.
+author: Sebastián Montero
+branding:
+  icon: activity
+  color: green
+inputs:
+  github-token:
+    description: Token used to list pull-request files, read workflow versions, optional Actions history, and optional pull-request comments.
+    required: false
+    default: ${{ github.token }}
+  workflow-glob:
+    description: Workflow files to analyze outside pull requests.
+    required: false
+    default: .github/workflows/*.{yml,yaml}
+  comment:
+    description: Create or update a pull request comment. PR analysis requires pull-requests read; commenting requires write.
+    required: false
+    default: "false"
+  fail-on:
+    description: Minimum severity that fails the check. One of none, high, medium, low, info.
+    required: false
+    default: none
+  history:
+    description: Use recent run/job metadata for an experimental monthly gross-equivalent projection. Requires Actions read.
+    required: false
+    default: "false"
+  history-window-days:
+    description: Number of recent days used to estimate workflow frequency (7-90).
+    required: false
+    default: "30"
+  history-sample-runs:
+    description: Maximum completed runs whose jobs are sampled per workflow (3-20).
+    required: false
+    default: "10"
+outputs:
+  report-json:
+    description: Machine-readable report.
+runs:
+  using: node24
+  main: dist/action/index.cjs

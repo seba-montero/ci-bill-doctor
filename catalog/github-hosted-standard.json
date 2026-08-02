@@ -1,0 +1,56 @@
+{
+  "$schema": "./pricing-catalog.schema.json",
+  "schemaVersion": 1,
+  "catalogVersion": "github-hosted-standard-2026-08-01",
+  "currency": "USD",
+  "effectiveFrom": "2026-01-01",
+  "reviewedAt": "2026-08-01",
+  "sourceUrl": "https://docs.github.com/en/billing/reference/actions-runner-pricing",
+  "runnerFamilies": {
+    "linux": {
+      "pricePerMinute": 0.006,
+      "labelPatterns": [
+        "^ubuntu-(latest|20\\.04|22\\.04|24\\.04)$"
+      ],
+      "notes": [
+        "Standard GitHub-hosted x64 runner only.",
+        "Larger, custom and partner runners are intentionally unknown."
+      ]
+    },
+    "windows": {
+      "pricePerMinute": 0.01,
+      "labelPatterns": [
+        "^windows-(latest|2019|2022|2025)$"
+      ],
+      "notes": [
+        "Standard GitHub-hosted runner only."
+      ]
+    },
+    "macos": {
+      "pricePerMinute": 0.062,
+      "labelPatterns": [
+        "^macos-(latest|13|14|15|26)$"
+      ],
+      "notes": [
+        "Standard GitHub-hosted runner only.",
+        "Custom size and architecture labels are intentionally unknown."
+      ]
+    },
+    "self-hosted": {
+      "pricePerMinute": null,
+      "labelPatterns": [
+        "^self-hosted$"
+      ],
+      "notes": [
+        "Infrastructure cost is organization-specific."
+      ]
+    },
+    "unknown": {
+      "pricePerMinute": null,
+      "labelPatterns": [],
+      "notes": [
+        "Unknown never means free."
+      ]
+    }
+  }
+}

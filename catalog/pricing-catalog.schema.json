@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ci-bill-doctor.invalid/schemas/pricing-catalog.schema.json",
+  "title": "CI Bill Doctor pricing catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "catalogVersion",
+    "currency",
+    "effectiveFrom",
+    "reviewedAt",
+    "sourceUrl",
+    "runnerFamilies"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "catalogVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "currency": {
+      "const": "USD"
+    },
+    "effectiveFrom": {
+      "type": "string",
+      "format": "date"
+    },
+    "reviewedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "sourceUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://docs\\.github\\.com/"
+    },
+    "runnerFamilies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "linux",
+        "windows",
+        "macos",
+        "self-hosted",
+        "unknown"
+      ],
+      "properties": {
+        "linux": {
+          "$ref": "#/$defs/runnerFamily"
+        },
+        "windows": {
+          "$ref": "#/$defs/runnerFamily"
+        },
+        "macos": {
+          "$ref": "#/$defs/runnerFamily"
+        },
+        "self-hosted": {
+          "$ref": "#/$defs/runnerFamily"
+        },
+        "unknown": {
+          "$ref": "#/$defs/runnerFamily"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "runnerFamily": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pricePerMinute",
+        "labelPatterns",
+        "notes"
+      ],
+      "properties": {
+        "pricePerMinute": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "labelPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

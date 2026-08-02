@@ -1,0 +1,12 @@
+name: Dynamic CI
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix: ${{ fromJSON(inputs.matrix) }}
+    timeout-minutes: 15
+    steps:
+      - run: npm test

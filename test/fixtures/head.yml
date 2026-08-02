@@ -1,0 +1,27 @@
+name: Risky CI
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        node:
+          - 18
+          - 20
+          - 22
+        database:
+          - postgres
+          - mysql
+    steps:
+      - uses: actions/setup-node@v6
+      - run: npm ci
+      - run: npm test
+
+  package:
+    runs-on: windows-latest
+    steps:
+      - run: npm install

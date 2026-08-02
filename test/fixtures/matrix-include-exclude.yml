@@ -1,0 +1,26 @@
+name: Matrix include and exclude
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        node:
+          - 18
+          - 20
+          - 22
+        database:
+          - postgres
+          - mysql
+        include:
+          - node: 22
+            database: postgres
+            experimental: true
+        exclude:
+          - node: 18
+            database: mysql
+    steps:
+      - run: npm test

@@ -1,0 +1,37 @@
+name: CI Bill Doctor Lab
+
+on:
+  pull_request:
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ci-bill-doctor-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - id: bill_doctor
+        uses: __ACTION_REPOSITORY__@__ACTION_REF__
+        with:
+          github-token: ${{ github.token }}
+          history: "true"
+          history-window-days: "30"
+          history-sample-runs: "5"
+          comment: "false"
+          fail-on: none
+      - name: Validate machine-readable report
+        env:
+          REPORT_JSON: ${{ steps.bill_doctor.outputs.report-json }}
+        run: >-
+          node -e "const report = JSON.parse(process.env.REPORT_JSON);
+          if (!Array.isArray(report.items)) throw new Error('Missing report items');"
