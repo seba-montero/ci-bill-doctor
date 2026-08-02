@@ -285,6 +285,7 @@ en los [avisos de terceros](THIRD_PARTY_NOTICES.md).
 - [Estado actual](docs/current-status.md)
 - [Arquitectura](docs/architecture.md)
 - [Laboratorio reproducible](lab/README.md)
+- [Informe de validación remota](docs/remote-validation.md)
 - [Decisiones de arquitectura](docs/decisions/0001-open-core-mit.md)
 - [Frontera del historial efímero](docs/decisions/0002-ephemeral-history.md)
 - [Core público y plataforma privada](docs/decisions/0003-public-core-private-cloud.md)
