@@ -24,6 +24,19 @@ export default defineConfig({
   build: {
     outDir: resolve(import.meta.dirname, 'dist/site'),
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        home: resolve(import.meta.dirname, 'site/index.html'),
+        matrixCost: resolve(
+          import.meta.dirname,
+          'site/guides/github-actions-matrix-cost.html'
+        ),
+        macosRegression: resolve(
+          import.meta.dirname,
+          'site/guides/github-actions-macos-cost-regression.html'
+        )
+      }
+    },
     modulePreload: {
       polyfill: false
     },

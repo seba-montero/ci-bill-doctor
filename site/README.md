@@ -8,10 +8,15 @@ scanner published at:
 ## Purpose
 
 The site lets a visitor receive useful value before installing the GitHub
-Action. It supports two jobs:
+Action. It supports two scanner jobs:
 
 1. analyze one workflow for cost-risk findings;
 2. compare a base workflow with a proposed version.
+
+It also publishes two static, indexable guides covering matrix fan-out and
+macOS runner cost regressions. The guides share the reviewed stylesheet and
+link every price-sensitive claim to the versioned catalog and GitHub's official
+pricing documentation.
 
 It imports the public deterministic core through `src/browser.ts`. It does not
 copy analyzer rules and does not contain a separate estimation model.
@@ -79,6 +84,7 @@ Manual release checks:
 - Marketplace, GitHub, feedback, security, and install links resolve;
 - the deployed artifact contains no credential or analytics endpoint.
 - the deployed artifact includes the project license and third-party notices.
+- both guide URLs, their shared stylesheet, and sitemap entries resolve.
 
 ## Deployment
 

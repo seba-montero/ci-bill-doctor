@@ -1264,6 +1264,153 @@ footer {
   background: #050d0a;
 }
 
+.guide-section {
+  padding-block: 100px;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 42px;
+}
+
+.guide-card {
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(17, 35, 29, 0.68);
+}
+
+.guide-card h3 {
+  max-width: 24ch;
+  margin: 10px 0 14px;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.guide-card > p:not(.guide-meta) {
+  color: var(--muted);
+}
+
+.guide-meta {
+  margin: 0;
+  color: var(--lime);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+}
+
+.article-main {
+  width: min(calc(100% - 40px), 820px);
+  margin-inline: auto;
+  padding-block: 80px 110px;
+}
+
+.article-hero {
+  padding-bottom: 46px;
+  border-bottom: 1px solid var(--line);
+}
+
+.article-hero h1 {
+  max-width: 16ch;
+  margin: 14px 0 22px;
+  font-size: clamp(2.7rem, 8vw, 5.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.article-lede {
+  max-width: 65ch;
+  margin: 0;
+  color: var(--soft);
+  font-size: 1.18rem;
+}
+
+.article-meta {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.article-body {
+  padding-top: 34px;
+}
+
+.article-body h2 {
+  margin: 54px 0 14px;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.article-body h3 {
+  margin: 34px 0 10px;
+  font-size: 1.25rem;
+}
+
+.article-body p,
+.article-body li {
+  color: var(--soft);
+  font-size: 1.02rem;
+}
+
+.article-body a {
+  color: var(--lime);
+  text-decoration: underline;
+  text-decoration-color: rgba(150, 241, 79, 0.38);
+  text-underline-offset: 3px;
+}
+
+.article-body code {
+  padding: 0.12em 0.35em;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--panel);
+  color: var(--text);
+}
+
+.article-body pre,
+.formula-card,
+.article-callout {
+  margin-block: 24px;
+  padding: 22px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+
+.article-body pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.formula-card strong {
+  display: block;
+  color: var(--lime);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(1rem, 3vw, 1.35rem);
+}
+
+.article-callout strong {
+  color: var(--text);
+}
+
+.article-cta {
+  margin-top: 56px;
+  padding: 30px;
+  border: 1px solid rgba(150, 241, 79, 0.35);
+  border-radius: var(--radius-md);
+  background: rgba(150, 241, 79, 0.08);
+}
+
+.article-cta h2 {
+  margin-top: 0;
+}
+
 .footer-inner {
   display: flex;
   align-items: end;
@@ -1414,6 +1561,7 @@ footer {
 
   .scanner-section,
   .feature-section,
+  .guide-section,
   .install-section,
   .trust-section,
   .faq-section {
@@ -1483,6 +1631,7 @@ footer {
   }
 
   .feature-grid,
+  .guide-grid,
   .trust-columns {
     grid-template-columns: 1fr;
   }

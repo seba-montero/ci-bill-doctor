@@ -8,7 +8,13 @@ const sourceNotices = await readFile(
 );
 
 const files = await listFiles(siteRoot);
-const requiredPaths = ["index.html", "LICENSE.txt", "THIRD_PARTY_NOTICES.md"];
+const requiredPaths = [
+  "index.html",
+  "guides/github-actions-matrix-cost.html",
+  "guides/github-actions-macos-cost-regression.html",
+  "LICENSE.txt",
+  "THIRD_PARTY_NOTICES.md",
+];
 const missingPaths = requiredPaths.filter((path) => !files.includes(path));
 
 if (missingPaths.length) {

@@ -66,6 +66,7 @@
       <nav aria-label="Primary navigation">
         <a href="#scanner">Scanner</a>
         <a href="#how-it-works">How it works</a>
+        <a href="#guides">Guides</a>
         <a href="#install">Install</a>
         <a
           class="nav-github"
@@ -239,6 +240,28 @@
         </div>
       </section>
 
+      <section id="guides" class="guide-section section-shell">
+        <div class="section-heading centered">
+          <p class="kicker">PRACTICAL GUIDES</p>
+          <h2>Understand the cost signal before changing CI.</h2>
+          <p>Worked examples using the same public catalog and conservative assumptions as the scanner.</p>
+        </div>
+        <div class="guide-grid">
+          <article class="guide-card">
+            <p class="guide-meta">MATRIX COST · 6 MIN READ</p>
+            <h3>How Much Does a GitHub Actions Matrix Cost?</h3>
+            <p>Calculate static fan-out, combine it with runner rates, and recognize when a small YAML diff multiplies work.</p>
+            <a class="inline-link" href="./guides/github-actions-matrix-cost.html">Read the guide <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="guide-card">
+            <p class="guide-meta">MACOS RUNNERS · 6 MIN READ</p>
+            <h3>Catch a macOS Cost Regression Before Merge</h3>
+            <p>See why runner selection and matrix size compound—and which safer changes to review first.</p>
+            <a class="inline-link" href="./guides/github-actions-macos-cost-regression.html">Read the guide <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </section>
+
       <section id="install" class="install-section">
         <div class="section-shell install-grid">
           <div class="install-copy">
@@ -373,6 +396,7 @@ jobs:
         <div class="footer-links">
           <a href="https://github.com/seba-montero/ci-bill-doctor">GitHub</a>
           <a href="https://github.com/marketplace/actions/ci-bill-doctor">Marketplace</a>
+          <a href="./guides/github-actions-matrix-cost.html">Guides</a>
           <a href="https://github.com/seba-montero/ci-bill-doctor/blob/main/SECURITY.md">Security</a>
           <a href="./LICENSE.txt">MIT License</a>
           <a href="./THIRD_PARTY_NOTICES.md">Third-party notices</a>
