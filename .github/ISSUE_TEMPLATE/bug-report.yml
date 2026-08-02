@@ -1,0 +1,56 @@
+name: Bug report
+description: Report a reproducible defect using sanitized information.
+title: "[bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Never paste tokens, secrets, private workflow YAML, logs, artifacts, API payloads, or private repository names.** Reduce the problem to a minimal synthetic example whenever possible.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: v0.2.0, browser scanner, or full commit SHA
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where did the problem occur?
+      options:
+        - Browser scanner
+        - GitHub Action
+        - CLI
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal sanitized reproduction (when applicable)
+      description: Use invented names and values. Include only the smallest safe fixture or documentation steps needed.
+      placeholder: Describe safe reproduction steps or paste a synthetic workflow if the problem involves YAML.
+    validations:
+      required: false
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: Include a diagnostic code or sanitized error text when available.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: This report contains no secrets, tokens, private names, logs, payloads, or confidential workflow content.
+          required: true

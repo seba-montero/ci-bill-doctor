@@ -43,9 +43,30 @@ workflow consumed the Action at
 `actions: read`, `contents: read`, and `pull-requests: read`, with no write
 scope. The guard and all application jobs passed.
 
-The immutable `v0.1.0` tag and moving `v0` tag identify this validated beta
-release. Consumers that require maximal supply-chain stability should pin the
-full release commit SHA.
+The immutable `v0.1.0` tag identifies this validated Action bundle. The moving
+`v0` tag may advance to later compatible releases; consumers that need this
+exact build should pin the full release commit SHA.
 
 The Marketplace Developer Agreement, listing categories, and any account-level
 publication confirmation are separate manual release steps.
+
+## v0.2.0 carry-over and browser release gate
+
+Version v0.2.0 adds the browser scanner, acquisition site, structured feedback
+forms, and Pages deployment workflow. It does not change the executable Action
+bundle validated above. A reproducible build of both versions produces the same
+SHA-256 for `dist/action/index.cjs`:
+
+```text
+84c609f423fbd17823b4aba21a51424e48c7dbd1ce3ddebaf9dffe1719768006
+```
+
+The real-repository Action probes therefore carry over only to the unchanged
+Action execution surface. They are not evidence for browser behavior.
+
+The independent v0.2.0 web release gate requires Node and browser typechecks,
+50 automated tests, eight Action smoke scenarios, dependency and artifact
+license checks, a production build without source maps or network/persistence
+runtime markers, a successful Pages deployment for the release commit, and a
+remote browser smoke of the canonical site. The version must not be tagged or
+published to Marketplace until those commit checks and the live-site smoke pass.

@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "noEmit": true,
+    "sourceMap": false,
+    "types": []
+  },
+  "include": [
+    "src/browser.ts",
+    "site/src/examples.ts",
+    "site/src/main.ts",
+    "site/src/scanner.ts"
+  ]
+}

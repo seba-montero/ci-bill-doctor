@@ -1,0 +1,90 @@
+name: Result feedback
+description: Share whether a sanitized CI Bill Doctor result was useful.
+title: "[feedback]: "
+labels:
+  - feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve the beta.
+
+        **Do not paste private workflow YAML, repository names, tokens, logs, artifacts, API payloads, or other confidential information.** Describe the workflow shape using broad categories only.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Which surface produced the result?
+      options:
+        - Browser scanner
+        - GitHub Action
+        - CLI
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: CI Bill Doctor version
+      description: The tag or full commit SHA, when available. Browser-scanner users can enter "browser scanner".
+      placeholder: v0.2.0 or browser scanner
+    validations:
+      required: false
+  - type: dropdown
+    id: useful
+    attributes:
+      label: Was the report useful for a pull-request decision?
+      options:
+        - Yes
+        - Partly
+        - No
+    validations:
+      required: true
+  - type: dropdown
+    id: credible
+    attributes:
+      label: Was the direction of the cost signal credible?
+      options:
+        - Yes
+        - Unsure
+        - No
+        - No cost direction was available
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: What happened after the report?
+      options:
+        - Applied a recommendation
+        - Changed the workflow another way
+        - Kept the proposed change
+        - Still evaluating
+        - Report was not actionable
+    validations:
+      required: true
+  - type: dropdown
+    id: history
+    attributes:
+      label: Historical projection status
+      options:
+        - Not enabled
+        - Available
+        - Fell back to static analysis
+        - Not applicable (browser scanner or CLI)
+        - Unsure
+    validations:
+      required: true
+  - type: textarea
+    id: missing
+    attributes:
+      label: What information was missing or confusing?
+      description: Keep the description sanitized and reproducible without private data.
+      placeholder: The report would have been clearer if…
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I have not included private workflow content, tokens, logs, repository names, or confidential information.
+          required: true

@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## 0.2.0 - 2026-08-02
+
+- Landing estática orientada a búsqueda y conversión, desplegable mediante GitHub Pages.
+- Scanner local para analizar o comparar workflows sin cuenta, backend ni upload de YAML.
+- Entry point browser-safe y guardrail TypeScript separado, sin tipos globales de Node.
+- Límite de 250 KB UTF-8, renderizado mediante nodos DOM y cinco pruebas de frontera web.
+- Funnel README → scanner → Marketplace con resultado validado y documentación bilingüe.
+- Formularios públicos sanitizados para feedback, interés alojado, bugs y consultas de uso.
+- Workflow de Pages con typecheck, 50 pruebas, validación de licencias y artifact legal completo.
+- Imagen social PNG 1200×630 y mejoras de teclado/foco para controles del scanner.
+- Bundle de la Action conservado sin cambios respecto de la release validada `v0.1.0`.
+
 ## 0.1.0 - 2026-08-02
 
 - Frontera formalizada entre core público MIT y plataforma comercial privada.

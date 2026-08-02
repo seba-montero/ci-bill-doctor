@@ -427,7 +427,7 @@ El core no envía telemetría.
 
 ## 10. Estrategia de pruebas
 
-**Estado local:** 45 pruebas automatizadas y ocho escenarios integrales del
+**Estado local:** 50 pruebas automatizadas y ocho escenarios integrales del
 bundle aprobados. Estos últimos ejercitan el transporte contra una API GitHub
 simulada; la ejecución contra un repositorio remoto de laboratorio continúa
 pendiente y no se considera cubierta por esta suite.
