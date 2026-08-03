@@ -1,8 +1,8 @@
 # CI Bill Doctor — Estado actual
 
-**Fecha:** 2 de agosto de 2026
+**Fecha:** 3 de agosto de 2026
 **Versión:** 0.2.0 beta
-**Objetivo de este corte:** sumar adquisición orgánica y validación asincrónica al producto funcional
+**Objetivo de este corte:** dejar preparada la primera validación orgánica y separar lo entregado de lo todavía no probado
 
 ## Entregado
 
@@ -78,6 +78,14 @@
 - Fallback HTTP 403 aprobado en un consumidor privado sin `actions: read`.
 - PR cross-repository aprobado con permisos exclusivamente de lectura, Action
   fijada por SHA, salida JSON completa y cero comentarios o escrituras.
+- Product Hunt preparado con nombre, descripción, tags, thumbnail y dos imágenes
+  distintas; comentario del Maker publicado y lanzamiento programado para el
+  5 de agosto de 2026 a las 00:01 PDT (04:01 ART).
+- Dos guías técnicas SEO publicadas y enlazadas desde el sitio.
+- Hacker News intentado desde una cuenta personal, pero diferido por la
+  restricción temporal para cuentas nuevas; no se intentó evadirla.
+- DEV descartado para los artículos actuales porque fueron asistidos por IA y
+  son promocionales, lo que no cumple la política vigente de DEV.
 
 ## Verificación realizada
 
@@ -124,14 +132,22 @@ caché, tráfico o duración.
 - Existen nueve fixtures YAML del core y 50 pruebas, todavía por debajo del gate de 25
   fixtures representativos.
 
+## Estado de validación comercial
+
+La distribución todavía no produjo evidencia suficiente para validar demanda.
+El snapshot de programación de Product Hunt registró 0 vistas, 0 clones, 0
+estrellas y 0 forks; es un punto de partida, no una conclusión de falta de
+interés. El reloj formal de 30 días comienza únicamente si Product Hunt hace
+público el lanzamiento en la fecha programada.
+
 ## Próximo bloque recomendado
 
-1. Ejecutar el primer evento de distribución y, recién entonces, iniciar el
-   período formal de validación orgánica de 30 días.
+1. Capturar un snapshot inmediatamente antes de que Product Hunt sea público y
+   ejecutar el lanzamiento programado.
 2. Preservar snapshots de tráfico y medir el embudo
    Marketplace/README/scanner mediante señales no invasivas.
-3. Publicar dos activos técnicos de alta intención y completar los lanzamientos
-   comunitarios mínimos definidos en el plan de validación.
+3. Completar una segunda distribución separada: HN si se levanta la restricción,
+   o una lista curada/newsletter/Hashnode con reglas compatibles.
 4. Backtestear dirección y error del escenario esperado contra los 30 días siguientes.
 5. Incorporar lectura de headers y retry adaptativo acotado sin
    superar el objetivo de 30 segundos.
